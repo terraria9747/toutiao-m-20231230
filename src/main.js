@@ -10,6 +10,9 @@ import './styles/index.css'
 import Vant from 'vant'
 import 'vant/lib/index.css'
 
+// 导入 rem适配的包
+import 'amfe-flexible'
+
 // 注册vant组件
 Vue.use(Vant)
 
