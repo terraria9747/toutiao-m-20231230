@@ -13,6 +13,9 @@ import 'vant/lib/index.css'
 // 导入 rem适配的包
 import 'amfe-flexible'
 
+// 导入dayjs时间格式化插件
+import './utls/dayjs'
+
 // 注册vant组件
 Vue.use(Vant)
 
