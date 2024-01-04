@@ -5,6 +5,5 @@ export const ArticleList = params => {
     method: 'GET',
     url: '/v1_0/articles',
     params
-
   })
 }

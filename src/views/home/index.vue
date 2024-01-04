@@ -22,10 +22,29 @@
       <!-- 占位符 -->
       <div slot="nav-right" class="placeholder"></div>
       <!-- 汉堡按钮 -->
-      <div slot="nav-right" class="hamburg-btn">
+      <div
+        slot="nav-right"
+        class="hamburg-btn"
+        @click="isChannelInfoShow = true"
+      >
         <i class="iconfont icon-gengduo"></i>
       </div>
     </van-tabs>
+
+    <!-- 弹出层 -->
+    <van-popup
+      v-model="isChannelInfoShow"
+      closeable
+      position="bottom"
+      close-icon-position="top-left"
+      :style="{ height: '80%' }"
+    >
+      <channel-edit
+        :myChannel="channelInfo"
+        :active="active"
+        @change_active="changeActive"
+      ></channel-edit>
+    </van-popup>
   </div>
 </template>
 
@@ -35,36 +54,64 @@ import { channelInfo } from '@/api/user'
 
 // 导入组件
 import ArticleList from './components/article-list.vue'
+import ChannelEdit from './components/channel-edit.vue'
+import { mapState } from 'vuex'
+import { getItem } from '@/utls/storage'
 
 export default {
   name: 'HomeIndex',
   components: {
     // 注册组件
-    ArticleList
+    ArticleList,
+    ChannelEdit,
   },
   props: {},
-  data () {
+  data() {
     return {
       active: 0,
-      channelInfo: {}
+      channelInfo: {},
+      isChannelInfoShow: false, // 弹出框是否显示
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['user']),
+  },
   watch: {},
-  created () {
+  created() {
     this.getChannelInfo()
   },
-  mounted () {},
+  mounted() {},
   methods: {
-    async getChannelInfo () {
+    async getChannelInfo() {
       try {
-        const { data } = await channelInfo()
-        this.channelInfo = data.data.channels
+        // 正确显示数据
+        let channel = []
+        if (this.user) {
+          const { data } = await channelInfo()
+          channel = data.data.channels
+        } else {
+          // 本地存储的数据
+          const localChannel = getItem('TOUTIAO_CHANNEL')
+          if (localChannel) {
+            // 本地存储有数据
+            channel = localChannel
+          } else {
+            // 本地存储无数据
+            const { data } = await channelInfo()
+            channel = data.data.channels
+          }
+        }
+        this.channelInfo = channel
       } catch (err) {
         this.$toast('获取用户频道失败')
       }
-    }
-  }
+    },
+    // 接收当前点击的按钮的索引--我的频道
+    changeActive(index, isChannelInfoShow = true) {
+      this.active = index
+      this.isChannelInfoShow = isChannelInfoShow
+    },
+  },
 }
 </script>
 
