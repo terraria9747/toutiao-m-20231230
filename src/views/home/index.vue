@@ -9,6 +9,7 @@
         icon="search"
         round
         class="search-btn"
+        to="/serach"
         >搜索</van-button
       >
     </van-nav-bar>

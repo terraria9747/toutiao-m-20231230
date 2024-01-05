@@ -9,6 +9,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/login')
+  },
+  {
+    path: '/serach',
+    name: 'serach',
+    component: () => import('@/views/serach')
   }, {
     path: '/',
     // name: 'layout', // 如果父路由默认有子路由, 它的name没有意义
