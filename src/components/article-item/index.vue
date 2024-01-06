@@ -1,5 +1,13 @@
 <template>
-  <van-cell class="article-item">
+  <van-cell
+    class="article-item"
+    :to="{
+      name: 'article',
+      params: {
+        articleId: article.art_id,
+      },
+    }"
+  >
     <!-- 标题 -->
     <div slot="title" class="title">{{ article.title }}</div>
     <div slot="label" class="label">
@@ -35,12 +43,12 @@ export default {
   props: {
     article: {
       type: Object,
-      require: true
-    }
+      require: true,
+    },
   },
-  data () {
+  data() {
     return {}
-  }
+  },
 }
 </script>
 

@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { setItem } from '@/utls/storage'
-
 export default {
   name: 'SearchHistory',
   data() {

@@ -9,11 +9,6 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/login')
-  },
-  {
-    path: '/serach',
-    name: 'serach',
-    component: () => import('@/views/serach')
   }, {
     path: '/',
     // name: 'layout', // 如果父路由默认有子路由, 它的name没有意义
@@ -37,7 +32,17 @@ const routes = [
         component: () => import('@/views/my')
       }
     ]
-  }
+  },
+  {
+    path: '/serach',
+    name: 'serach',
+    component: () => import('@/views/serach')
+  }, {
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article'),
+    props: true, // 开启路由传参
+  },
 ]
 
 const router = new VueRouter({
