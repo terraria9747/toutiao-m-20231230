@@ -3,7 +3,12 @@
     <!-- 导航栏 -->
     <div class="nav-box">
       <van-nav-bar title="头条项目练习">
-        <van-icon class="nav-icon" slot="left" name="arrow-left" />
+        <van-icon
+          class="nav-icon"
+          slot="left"
+          name="arrow-left"
+          @click="$router.back()"
+        />
         <van-icon class="nav-icon" slot="right" name="ellipsis" />
       </van-nav-bar>
     </div>
@@ -40,14 +45,18 @@
               </div>
             </div>
             <div class="right">
-              <van-button
-                class="attentionBtn"
-                border="0"
-                type="info"
-                size="small"
-                round
-                >+ 关注</van-button
-              >
+              <!--
+                :is-followed="articleDetail.is_followed"
+                @change-follow="articleDetail.is_followed = $event"
+
+                当父组件传递给子组件的数据既要使用又要修改, 可以使用v-model
+                v-model
+               -->
+              <!-- 按钮组件 -->
+              <follow-user
+                :user-id="articleDetail.aut_id"
+                v-model="articleDetail.is_followed"
+              />
             </div>
           </div>
 
@@ -83,18 +92,26 @@
             >点击重试</van-button
           >
         </div>
-      </div>
-    </div>
 
-    <!-- 底部 点赞|评论|收藏|转发 -->
-    <div class="article-button">
-      <van-button class="review" size="mini" round type="default"
-        >写评论...</van-button
-      >
-      <van-icon class="icon" name="good-job-o" badge="99+" />
-      <van-icon class="icon" name="chat-o" badge="9" />
-      <van-icon class="icon" name="star-o" />
-      <van-icon class="icon" name="friends-o" />
+        <!-- 底部 点赞|评论|收藏|转发 -->
+        <div class="article-button">
+          <van-button class="review" size="mini" round type="default"
+            >写评论...</van-button
+          >
+          <van-icon class="icon" name="chat-o" badge="9" />
+          <!-- 收藏组件 -->
+          <collect-article
+            :userId="articleDetail.art_id"
+            v-model="articleDetail.is_collected"
+          />
+          <!-- 点赞组件 -->
+          <like-article
+            :userId="articleDetail.art_id"
+            v-model="articleDetail.attitude"
+          />
+          <van-icon class="icon" name="friends-o" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -106,27 +123,38 @@ import { getArticleById } from '@/api/article'
 // 导入 ImagePreview 图片预览组件
 import { ImagePreview } from 'vant'
 
+// 导入公共组件
+import FollowUser from '@/components/follow-user'
+import CollectArticle from '@/components/collect-article'
+import LikeArticle from '@/components/like-article'
+
 export default {
   name: 'ArticleIndex',
   props: {
     articleId: {
       type: [String, Number, Object],
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
+  components: {
+    FollowUser,
+    CollectArticle,
+    LikeArticle
+  },
+  data () {
     return {
       articleDetail: {}, // 文章详细数据
       loading: true, // 是否有加载效果
       statusCode: 0, // 响应状态码
+      followloding: false // loading加载
     }
   },
-  created() {
+  created () {
     this.loadArticle()
   },
   methods: {
     // 根据id获取文章详细信息
-    async loadArticle() {
+    async loadArticle () {
       try {
         this.loading = true
         const { data } = await getArticleById(this.articleId)
@@ -152,8 +180,8 @@ export default {
       this.loading = false
     },
     // 图片预览效果
-    imagePreview() {
-      const articleImg = this.$refs['articleDetailRef']
+    imagePreview () {
+      const articleImg = this.$refs.articleDetailRef
       // 获取图片地址
       const articleAllImg = articleImg.querySelectorAll('img')
       const images = []
@@ -164,12 +192,12 @@ export default {
           // 图片预览
           ImagePreview({
             images,
-            startPosition: index,
+            startPosition: index
           })
         }
       })
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -212,7 +240,7 @@ export default {
       font-size: 30px;
       color: #a7a7a7;
       padding-right: 110px;
-      margin: 0 100px 0 50px;
+      margin: 0 45px;
     }
 
     // icon图标
@@ -221,7 +249,7 @@ export default {
       font-size: 45px;
       .van-info {
         top: 5px;
-        right: 35px;
+        right: 45px;
         border: 0;
       }
     }
@@ -292,12 +320,12 @@ export default {
           width: 170px;
           height: 58px;
           font-size: 22px;
-          color: #ffffff;
         }
       }
     }
     // 正常内容
     .atricle-detail {
+      padding-top: 20px;
       font-size: 34px;
     }
     // 错误提示

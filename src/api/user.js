@@ -34,3 +34,22 @@ export const channelInfo = () => {
     url: '/v1_0/user/channels'
   })
 }
+
+// 关注用户
+export const getfollow = target => {
+  return request({
+    method: 'POST',
+    url: '/v1_0/user/followings',
+    data: {
+      target
+    }
+  })
+}
+
+// 取消用户
+export const deletefollow = target => {
+  return request({
+    method: 'DELETE',
+    url: `/v1_0/user/followings/${target}`
+  })
+}
