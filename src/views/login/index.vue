@@ -61,7 +61,7 @@ export default {
   name: 'LoginIndex',
   components: {},
   props: {},
-  data () {
+  data() {
     return {
       // 输入框信息
       userInfo: {
@@ -70,32 +70,32 @@ export default {
         // mobile: '17342065909', // 手机号 -- 天天
         // mobile: '', // 手机号
         // code: '', // 短信验证码
-        code: '246810' // 短信验证码 -- 万能验证码
+        code: '246810', // 短信验证码 -- 万能验证码
       },
 
       // 验证信息
       userFormRules: {
         mobile: [
           { require: true, message: '手机号不能为空' },
-          { pattern: /^1[3|5|7|9]\d{9}$/, message: '手机号格式错误' }
+          { pattern: /^1[3|5|7|9]\d{9}$/, message: '手机号格式错误' },
         ],
         code: [
           { require: true, message: '验证码不能为空' },
-          { pattern: /^\d{6}$/, message: '验证码格式错误' }
-        ]
+          { pattern: /^\d{6}$/, message: '验证码格式错误' },
+        ],
       },
 
       // 倒计时是否开启
-      isCountDownShow: false
+      isCountDownShow: false,
     }
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {
     // =========== 登录操作 ===========
-    async onSubmit () {
+    async onSubmit() {
       // 1.获取表单数据
       const user = this.userInfo
 
@@ -104,7 +104,7 @@ export default {
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true,
-        duration: 0 // 加载时间 0 --> 一直加载
+        duration: 0, // 加载时间 0 --> 一直加载
       })
 
       // 4.提交表单数据请求
@@ -126,7 +126,7 @@ export default {
 
     // =========== 验证码操作 ===========
     // 验证码校验
-    async onSendSms () {
+    async onSendSms() {
       // 验证手机号合法性
       try {
         await this.$refs.loginForm.validate('mobile')
@@ -150,8 +150,8 @@ export default {
           this.$toast('发送失败, 请稍后再试')
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

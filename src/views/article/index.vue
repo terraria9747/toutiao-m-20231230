@@ -72,6 +72,14 @@
           >
             正文结束
           </van-divider>
+
+          <!-- 评论列表组件 -->
+          <comments-list
+            :source="articleId"
+            @update-count="commentcount = $event.total_count"
+            :list="commentsList"
+            @replay-click="onReplyClick"
+          />
         </div>
 
         <!-- 404, 你似乎来到了没有知识的荒原 -->
@@ -95,10 +103,15 @@
 
         <!-- 底部 点赞|评论|收藏|转发 -->
         <div class="article-button">
-          <van-button class="review" size="mini" round type="default"
+          <van-button
+            class="review"
+            size="mini"
+            round
+            type="default"
+            @click="popShow = true"
             >写评论...</van-button
           >
-          <van-icon class="icon" name="chat-o" badge="9" />
+          <van-icon class="icon" name="chat-o" :info="this.commentcount" />
           <!-- 收藏组件 -->
           <collect-article
             :userId="articleDetail.art_id"
@@ -111,6 +124,34 @@
           />
           <van-icon class="icon" name="friends-o" />
         </div>
+
+        <!-- 写评论弹出层 -->
+        <van-popup
+          v-model="popShow"
+          position="bottom"
+          :style="{ height: '30%' }"
+        >
+          <comment-preview
+            :target="articleDetail.art_id"
+            @success-post="SuccessPost"
+          ></comment-preview>
+        </van-popup>
+
+        <!-- 回复评论弹出层 -->
+        <van-popup
+          v-model="replyShow"
+          position="bottom"
+          :style="{ height: '80%' }"
+          class="reply"
+        >
+          <!-- 关闭页面销毁组件 -->
+          <comment-reply
+            v-if="replyShow"
+            :commentReply="commentReply"
+            :articleId="articleId"
+            @goback="replyShow = false"
+          />
+        </van-popup>
       </div>
     </div>
   </div>
@@ -127,34 +168,46 @@ import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user'
 import CollectArticle from '@/components/collect-article'
 import LikeArticle from '@/components/like-article'
+// 导入评论列表组件
+import CommentsList from './components/comments-list.vue'
+import CommentPreview from './components/comment-preview.vue'
+import CommentReply from './components/comment-reply.vue'
 
 export default {
   name: 'ArticleIndex',
   props: {
     articleId: {
       type: [String, Number, Object],
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     FollowUser,
     CollectArticle,
-    LikeArticle
+    LikeArticle,
+    CommentsList,
+    CommentPreview,
+    CommentReply,
   },
-  data () {
+  data() {
     return {
       articleDetail: {}, // 文章详细数据
       loading: true, // 是否有加载效果
       statusCode: 0, // 响应状态码
-      followloding: false // loading加载
+      followloding: false, // loading加载
+      commentcount: 0, // 评论数量
+      popShow: false, // 写评论弹出框
+      replyShow: false, // 回复评论弹出框
+      commentsList: [],
+      commentReply: [], // 回复评论
     }
   },
-  created () {
+  created() {
     this.loadArticle()
   },
   methods: {
     // 根据id获取文章详细信息
-    async loadArticle () {
+    async loadArticle() {
       try {
         this.loading = true
         const { data } = await getArticleById(this.articleId)
@@ -180,7 +233,7 @@ export default {
       this.loading = false
     },
     // 图片预览效果
-    imagePreview () {
+    imagePreview() {
       const articleImg = this.$refs.articleDetailRef
       // 获取图片地址
       const articleAllImg = articleImg.querySelectorAll('img')
@@ -192,12 +245,24 @@ export default {
           // 图片预览
           ImagePreview({
             images,
-            startPosition: index
+            startPosition: index,
           })
         }
       })
-    }
-  }
+    },
+    // 成功评论之后
+    SuccessPost(data) {
+      // 2.关闭弹出层
+      this.popShow = false
+      // 3.文本内容显示到顶层
+      this.commentsList.unshift(data.new_obj)
+    },
+    // 点击回复按钮
+    onReplyClick(data) {
+      this.commentReply = data
+      this.replyShow = true
+    },
+  },
 }
 </script>
 
@@ -214,6 +279,7 @@ export default {
     left: 0;
     right: 0;
     top: 0;
+    z-index: 1;
     // icon图标
     .nav-icon {
       font-size: 36px;
@@ -356,6 +422,9 @@ export default {
     .atricle-divider {
       padding-bottom: 100px;
     }
+  }
+  .reply-container {
+    padding: 0 40px;
   }
 }
 </style>
