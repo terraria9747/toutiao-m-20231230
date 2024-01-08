@@ -8,7 +8,9 @@
           <span class="text">{{ this.userInfo.name }}</span>
         </div>
         <div class="right">
-          <van-button size="mini" class="btn" round>编辑资料</van-button>
+          <van-button size="mini" class="btn" round to="/my/userinfo"
+            >编辑资料</van-button
+          >
         </div>
       </div>
       <div class="user-userinfo">
@@ -103,9 +105,7 @@ export default {
           // 退出登录, 删除vuex和本地存储中的user
           return this.$store.commit('setUser', null)
         })
-        .catch(() => {
-
-        })
+        .catch(() => {})
     },
 
     // 获取用户信息

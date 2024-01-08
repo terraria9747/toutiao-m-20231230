@@ -41,8 +41,14 @@ const routes = [
     path: '/article/:articleId',
     name: 'article',
     component: () => import('@/views/article'),
-    props: true, // 开启路由传参
+    props: true // 开启路由传参
   },
+  {
+    path: '/my/userinfo',
+    name: 'userinfo',
+    component: () => import('@/views/userinfo'),
+    props: true // 开启路由传参
+  }
 ]
 
 const router = new VueRouter({
