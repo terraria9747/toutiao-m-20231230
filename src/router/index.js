@@ -52,6 +52,11 @@ const routes = [
     path: '/user-chat',
     name: 'userchat',
     component: () => import('@/views/user-chat')
+  },
+  {
+    path: '/user-info',
+    name: 'userinfo',
+    component: () => import('@/views/user-info')
   }
 ]
 
