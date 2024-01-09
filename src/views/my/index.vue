@@ -67,7 +67,12 @@
         is-link
         @click="$router.push('./user-chat')"
       />
-      <van-cell class="text" title="账号和隐私设置" is-link />
+      <van-cell
+        class="text"
+        title="账号和隐私设置"
+        is-link
+        @click="$router.push('./setting')"
+      />
     </van-cell-group>
 
     <!-- 退出登录 -->
