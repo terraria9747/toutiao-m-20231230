@@ -46,8 +46,12 @@ const routes = [
   {
     path: '/my/userinfo',
     name: 'userinfo',
-    component: () => import('@/views/userinfo'),
-    props: true // 开启路由传参
+    component: () => import('@/views/userinfo')
+  },
+  {
+    path: '/user-chat',
+    name: 'userchat',
+    component: () => import('@/views/user-chat')
   }
 ]
 

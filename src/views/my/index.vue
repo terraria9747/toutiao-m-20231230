@@ -56,7 +56,13 @@
     <!-- 单元格 -->
     <van-cell-group class="cell">
       <van-cell class="text" title="消息通知" is-link />
-      <van-cell class="text" title="小智同学" is-link />
+      <van-cell
+        class="text"
+        title="小智同学"
+        is-link
+        @click="$router.push('./user-chat')"
+      />
+      <van-cell class="text" title="账号和隐私设置" is-link />
     </van-cell-group>
 
     <!-- 退出登录 -->

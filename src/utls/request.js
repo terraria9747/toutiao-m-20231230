@@ -3,7 +3,9 @@ import store from '@/store'
 
 const request = axios.create({
   // 基础路径
-  baseURL: 'https://toutiao.itheima.net'
+  // baseURL: 'https://toutiao.itheima.net'
+  baseURL: 'http://geek.itheima.net'
+
 })
 
 // 请求拦截器
