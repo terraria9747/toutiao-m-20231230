@@ -178,8 +178,8 @@ export default {
   props: {
     articleId: {
       type: [String, Number, Object],
-      required: true,
-    },
+      required: true
+    }
   },
   components: {
     FollowUser,
@@ -187,9 +187,9 @@ export default {
     LikeArticle,
     CommentsList,
     CommentPreview,
-    CommentReply,
+    CommentReply
   },
-  data() {
+  data () {
     return {
       articleDetail: {}, // 文章详细数据
       loading: true, // 是否有加载效果
@@ -199,15 +199,16 @@ export default {
       popShow: false, // 写评论弹出框
       replyShow: false, // 回复评论弹出框
       commentsList: [],
-      commentReply: [], // 回复评论
+      commentReply: [] // 回复评论
     }
   },
-  created() {
+  created () {
     this.loadArticle()
+    console.log('组件缓存')
   },
   methods: {
     // 根据id获取文章详细信息
-    async loadArticle() {
+    async loadArticle () {
       try {
         this.loading = true
         const { data } = await getArticleById(this.articleId)
@@ -233,7 +234,7 @@ export default {
       this.loading = false
     },
     // 图片预览效果
-    imagePreview() {
+    imagePreview () {
       const articleImg = this.$refs.articleDetailRef
       // 获取图片地址
       const articleAllImg = articleImg.querySelectorAll('img')
@@ -245,24 +246,24 @@ export default {
           // 图片预览
           ImagePreview({
             images,
-            startPosition: index,
+            startPosition: index
           })
         }
       })
     },
     // 成功评论之后
-    SuccessPost(data) {
+    SuccessPost (data) {
       // 2.关闭弹出层
       this.popShow = false
       // 3.文本内容显示到顶层
       this.commentsList.unshift(data.new_obj)
     },
     // 点击回复按钮
-    onReplyClick(data) {
+    onReplyClick (data) {
       this.commentReply = data
       this.replyShow = true
-    },
-  },
+    }
+  }
 }
 </script>
 
