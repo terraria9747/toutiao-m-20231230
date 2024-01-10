@@ -3,7 +3,7 @@
     <!-- 已登录页面布局 -->
     <div v-if="user" class="header yes-login">
       <div class="login-userinfo">
-        <div class="left">
+        <div class="left" @click="goBasicUserInfo()">
           <van-image class="avatar" round :src="this.userInfo.photo" />
           <span class="text">{{ this.userInfo.name }}</span>
         </div>
@@ -136,6 +136,10 @@ export default {
       } catch (err) {
         console.log('获取用户信息失败')
       }
+    },
+
+    goBasicUserInfo () {
+      this.$router.push('./basicUserInfo')
     }
   }
 }

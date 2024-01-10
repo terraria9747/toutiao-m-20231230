@@ -72,6 +72,11 @@ const routes = [
     path: '/userinfo2',
     name: 'LikeFans',
     component: () => import('@/views/userinfo2')
+  },
+  {
+    path: '/basicUserInfo',
+    name: 'basicUserInfo',
+    component: () => import('@/views/basicUserInfo')
   }
 ]
 

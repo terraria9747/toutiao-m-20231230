@@ -95,3 +95,11 @@ export const getFans = () => {
     url: '/v1_0/user/followers'
   })
 }
+
+// 获取-用户基本资料
+export const getUser = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user'
+  })
+}
