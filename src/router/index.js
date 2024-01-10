@@ -54,14 +54,19 @@ const routes = [
     component: () => import('@/views/user-chat')
   },
   {
-    path: '/user-info',
-    name: 'userinfo',
-    component: () => import('@/views/user-info')
+    path: '/user-message',
+    name: 'user-message',
+    component: () => import('@/views/user-message')
   },
   {
     path: '/setting',
     name: 'setting',
     component: () => import('@/views/setting')
+  },
+  {
+    path: '/user',
+    name: 'CollectHistory',
+    component: () => import('@/views/user')
   }
 ]
 

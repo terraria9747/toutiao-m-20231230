@@ -66,3 +66,19 @@ export const deleteLike = target => {
     url: `/v1_0/article/likings/${target}`
   })
 }
+
+// 获取历史记录
+export const getHistory = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user/histories'
+  })
+}
+
+// 获取收藏列表
+export const getCollect = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/article/collections'
+  })
+}

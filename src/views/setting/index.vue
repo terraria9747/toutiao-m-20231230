@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import phoneItem from './components/phone-item'
-import pwdItem from './components/pwd-item'
+import phoneItem from './component/phone-item'
+import pwdItem from './component/pwd-item'
 
 export default {
   name: 'SettingItem',

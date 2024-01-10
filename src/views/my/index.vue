@@ -45,11 +45,15 @@
     <van-grid class="grid-nav" :column-num="2" clickable>
       <van-grid-item class="grid-item">
         <i slot="icon" class="iconfont icon-shoucang"></i>
-        <span slot="text" class="text">收藏</span>
+        <span slot="text" class="text" @click="$router.push('./user')"
+          >收藏</span
+        >
       </van-grid-item>
       <van-grid-item class="grid-item">
         <i slot="icon" class="iconfont icon-lishi"></i>
-        <span slot="text" class="text">历史</span>
+        <span slot="text" class="text" @click="$router.push('./user')"
+          >历史</span
+        >
       </van-grid-item>
     </van-grid>
 
@@ -58,7 +62,7 @@
       <van-cell
         class="text"
         title="消息通知"
-        @click="$router.push('./user-info')"
+        @click="$router.push('./user-message')"
         is-link
       />
       <van-cell
