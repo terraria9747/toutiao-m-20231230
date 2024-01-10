@@ -79,3 +79,19 @@ export const updateUserPhoto = data => {
     data
   })
 }
+
+// 获取关注数
+export const getLike = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user/followings'
+  })
+}
+
+// 获取粉丝数
+export const getFans = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user/followers'
+  })
+}

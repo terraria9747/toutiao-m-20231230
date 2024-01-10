@@ -18,12 +18,12 @@
           <div class="count">{{ this.userInfo.art_count }}</div>
           <div class="text">头条</div>
         </div>
-        <div class="data-item">
-          <div class="count">{{ this.userInfo.fans_count }}</div>
+        <div class="data-item" @click="$router.push('./userinfo2')">
+          <div class="count">{{ this.userInfo.follow_count }}</div>
           <div class="text">关注</div>
         </div>
-        <div class="data-item">
-          <div class="count">{{ this.userInfo.follow_count }}</div>
+        <div class="data-item" @click="$router.push('./userinfo2')">
+          <div class="count">{{ this.userInfo.fans_count }}</div>
           <div class="text">粉丝</div>
         </div>
         <div class="data-item">

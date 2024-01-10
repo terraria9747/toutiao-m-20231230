@@ -67,6 +67,11 @@ const routes = [
     path: '/user',
     name: 'CollectHistory',
     component: () => import('@/views/user')
+  },
+  {
+    path: '/userinfo2',
+    name: 'LikeFans',
+    component: () => import('@/views/userinfo2')
   }
 ]
 
