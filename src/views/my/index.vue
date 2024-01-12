@@ -35,7 +35,17 @@
 
     <!-- 未登录页面布局 -->
     <div v-else class="header no-login">
-      <div class="login-box" @click="$router.push('./login')">
+      <div
+        class="login-box"
+        @click="
+          $router.push({
+            name: 'login',
+            query: {
+              redirect: '/my',
+            },
+          })
+        "
+      >
         <img class="login-img" src="~@/assets/mobile.png" />
         <span class="login-text">登录 / 注册</span>
       </div>

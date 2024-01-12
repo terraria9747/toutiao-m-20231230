@@ -117,7 +117,8 @@ export default {
         this.$store.commit('removeCachePage', 'LayoutIndex')
 
         // 登录成功页面跳转
-        this.$router.back()
+        // this.$router.back()
+        this.$router.push(this.$route.query.redirect || '/')
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')
